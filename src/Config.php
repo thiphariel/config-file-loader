@@ -16,20 +16,11 @@ class Config
     private $data;
 
     /**
-     * @var array
-     */
-    private $supportedParsers = [];
-
-    /**
      * Config constructor.
      */
     public function __construct()
     {
         $this->data = [];
-        $this->supportedParsers = [
-            "json" => "Config\Parser\JSONParser",
-            "php" => "Config\Parser\PHPParser"
-        ];
     }
 
     /**
@@ -66,7 +57,7 @@ class Config
             case "php":
                 return new PHPParser();
             default:
-                throw new UnsupportedFormatException("Unsupported format. Only JSON files are supported");
+                throw new UnsupportedFormatException("Unsupported file format.");
                 break;
         }
     }
