@@ -5,6 +5,8 @@ namespace Config;
 use Config\Exception\FileNotFoundException;
 use Config\Exception\UnsupportedFormatException;
 use Config\Parser\JSONParser;
+use Config\Parser\ParserInterface;
+use Config\Parser\PHPParser;
 
 class Config
 {
@@ -14,11 +16,20 @@ class Config
     private $data;
 
     /**
+     * @var array
+     */
+    private $supportedParsers = [];
+
+    /**
      * Config constructor.
      */
     public function __construct()
     {
         $this->data = [];
+        $this->supportedParsers = [
+            "json" => "Config\Parser\JSONParser",
+            "php" => "Config\Parser\PHPParser"
+        ];
     }
 
     /**
@@ -33,13 +44,31 @@ class Config
 
         $info = pathinfo($path);
         $extension = $info['extension'] ?? '';
-        $parser = new JSONParser();
 
-        if (!in_array($extension, $parser->extension())) {
-            throw new UnsupportedFormatException("Unsupported format. Only JSON files are supported");
-        }
+        $parser = $this->getParser($extension);
 
         $this->data = $parser->parse($path);
+    }
+
+    /**
+     * Retrieve the correct parser for the given extension
+     *
+     * @param string $extension
+     *
+     * @return ParserInterface
+     * @throws UnsupportedFormatException
+     */
+    private function getParser(string $extension): ParserInterface
+    {
+        switch ($extension) {
+            case "json":
+                return new JSONParser();
+            case "php":
+                return new PHPParser();
+            default:
+                throw new UnsupportedFormatException("Unsupported format. Only JSON files are supported");
+                break;
+        }
     }
 
     /**

@@ -67,6 +67,9 @@ class ConfigTest extends TestCase
     {
         $this->config->load("tests/config/config.json");
         $this->assertEquals("dev", $this->config->get("env"));
+
+        $this->config->load("tests/config/config.php");
+        $this->assertEquals("dev", $this->config->get("env"));
     }
 
     /**
@@ -75,6 +78,9 @@ class ConfigTest extends TestCase
     public function testRetrieveCorrectValueFromNestedKey()
     {
         $this->config->load("tests/config/config.json");
+        $this->assertEquals("localhost", $this->config->get("server.host"));
+
+        $this->config->load("tests/config/config.php");
         $this->assertEquals("localhost", $this->config->get("server.host"));
     }
 }

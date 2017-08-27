@@ -1,10 +1,16 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: thiphariel
+ * Date: 27/08/17
+ * Time: 12:06
+ */
 
 namespace Config\Parser;
 
 use Config\Exception\ParseException;
 
-class JSONParser implements ParserInterface
+class PHPParser implements ParserInterface
 {
     /**
      * Parse the data
@@ -15,12 +21,6 @@ class JSONParser implements ParserInterface
      */
     public function parse(string $path): array
     {
-        $data = json_decode(file_get_contents($path), true);
-
-        if (json_last_error() !== JSON_ERROR_NONE) {
-            throw new ParseException();
-        }
-
-        return $data;
+        return require "$path";
     }
 }

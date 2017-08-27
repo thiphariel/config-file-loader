@@ -7,7 +7,7 @@
 
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/a9020ecb-245f-41c3-8862-0e439e2a0aa2/big.png)](https://insight.sensiolabs.com/projects/a9020ecb-245f-41c3-8862-0e439e2a0aa2)
 
-This library is a configuration file loader in PHP that supports only JSON at the moment.
+This library is a configuration file loader in PHP that supports JSON and PHP files at the moment.
 
 ## Requierements
 
@@ -25,8 +25,11 @@ composer require thiphariel/config-file-loader
 // Create an instance of Config
 $config = new Config();
 
-// Load the configuration file
+// Load JSON configuration file
 $config->load("config.json");
+
+// Load PHP configuration file
+$config->load("config.php");
 
 // Getting values
 $host = $config->get("host");
@@ -35,3 +38,5 @@ $port = $config->get("port");
 // Nested keys
 $env = $config->get("environment.dev");
 ```
+
+Examples of configurations can be found in the `tests/config` folder.
