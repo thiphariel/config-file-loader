@@ -70,7 +70,7 @@ class Config
      * @param string $key
      * @return array|string
      */
-    public function get(string $key)
+    public function get(string $key = null)
     {
         $nested = explode('.', $key);
         $base = $this->data;
