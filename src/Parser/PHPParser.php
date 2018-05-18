@@ -8,8 +8,6 @@
 
 namespace Config\Parser;
 
-use Config\Exception\ParseException;
-
 class PHPParser implements ParserInterface
 {
     /**
@@ -17,7 +15,6 @@ class PHPParser implements ParserInterface
      *
      * @param string $path
      * @return array
-     * @throws ParseException
      */
     public function parse(string $path): array
     {

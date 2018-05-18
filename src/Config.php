@@ -27,6 +27,8 @@ class Config
      * Load the file data as an array.
      *
      * @param string $path
+     * @throws Exception\ParseException
+     * @throws FileNotFoundException
      * @throws UnsupportedFormatException
      */
     public function load(string $path): void
